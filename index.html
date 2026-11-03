@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>For you</title>
+<title>Tomar jonyo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Noto+Serif+Bengali:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -92,28 +92,28 @@ video{width:100%;max-height:46vh;border-radius:20px;background:#222;transform:sc
 
 <div id="loader" class="scene on"><svg viewBox="0 0 64 64"><g fill="#F4C6D0" stroke="#B98750" stroke-width=".8"><ellipse cx="32" cy="16" rx="8" ry="14"/><ellipse cx="32" cy="16" rx="8" ry="14" transform="rotate(72 32 32)"/><ellipse cx="32" cy="16" rx="8" ry="14" transform="rotate(144 32 32)"/><ellipse cx="32" cy="16" rx="8" ry="14" transform="rotate(216 32 32)"/><ellipse cx="32" cy="16" rx="8" ry="14" transform="rotate(288 32 32)"/></g><circle cx="32" cy="32" r="4" fill="#B98750"/></svg></div>
 
-<section class="scene" id="s0"><h2>Before we begin</h2><div class="rule"></div><p class="sub">This is for you. Tap when you're ready, and turn your sound and light down low.</p><button class="btn" id="go">Begin</button></section>
+<section class="scene" id="s0"><h2>Shuru kora jak?</h2><div class="rule"></div><p class="sub">Ei jinishta tomar jonyo. Ready thakle tap koro, r sound/light ektu kom kore nio.</p><button class="btn" id="go">Shuru</button></section>
 <section class="scene" id="s1"><div class="t1">I want to propose again</div></section>
 <section class="scene" id="s2"><div class="bn" id="bn" aria-label="তুমি কি চিরকালের জন্য আমার হবে?"></div></section>
 
 <section class="scene" id="s3"><div class="glass">
-<h2>A little keepsake?</h2><p class="sub" id="camInfo">With your permission, your front camera will take four photos, one every few seconds, so you can keep them. Nothing is captured until you press Start capture. Photos stay on your device unless you choose to share them below.</p>
+<h2>Ekta chhoto smriti rakhi?</h2><p class="sub" id="camInfo">Tomar onumoti thakle, front camera diye charta chhobi tola hobe, ekta ekta kore. Jotokkhon na tumi "Capture shuru koro" chapcho, totokkhon kichu tola hobe na. Chhobi gulo tomar device e thakbe, jotokkhon na tumi niche share korar option ta select koro.</p>
 <div class="vw" id="vw" style="display:none"><video id="vid" playsinline muted></video><div id="cd"></div></div>
 <div id="gal" class="grid" style="display:none"></div>
 <div class="seg" id="seg" style="display:none"><button class="a" data-m="o">Original</button><button data-m="e">Enhanced</button></div>
-<label class="chk" id="shareBox" style="display:none"><input type="checkbox" id="share"><span>I also agree to upload these photos so the sender can view them. I can leave this unchecked and keep them private.</span></label>
-<div class="row" id="camBtns"><button class="btn" id="allow">Allow camera</button><button class="btn ghost" id="skip">Skip</button></div>
-<div class="row"><button class="btn pk" id="start" style="display:none">Start capture</button><button class="btn" id="cont" style="display:none">Continue</button></div>
+<label class="chk" id="shareBox" style="display:none"><input type="checkbox" id="share"><span>Ami ei chhobi gulo upload korte raji, jate pathanor jon eigulo dekhte pare. Na select korleo chhobi private e thakbe.</span></label>
+<div class="row" id="camBtns"><button class="btn" id="allow">Camera on koro</button><button class="btn ghost" id="skip">Baad dao</button></div>
+<div class="row"><button class="btn pk" id="start" style="display:none">Capture shuru koro</button><button class="btn" id="cont" style="display:none">Egiye jao</button></div>
 </div></section>
 
 <section class="scene" id="s4"><h2 style="font-size:clamp(36px,8vw,72px);font-style:italic;font-weight:300">Will you be mine forever?</h2><div class="rule"></div>
-<div class="row"><button class="btn" id="yes">Absolutely yes ❤️</button><button class="btn ghost" id="no">Nope 🥺</button></div><div id="msg"></div></section>
-<section class="scene" id="s5"><div class="final">Forever it is.</div><p class="sub" style="font-size:18px">You just made me the happiest person alive. Every day with you is my favourite one.</p></section>
+<div class="row"><button class="btn" id="yes">Hae, obossoi ❤️</button><button class="btn ghost" id="no">Na 🥺</button></div><div id="msg"></div></section>
+<section class="scene" id="s5"><div class="final">Tahole forever e thik ache.</div><p class="sub" style="font-size:18px">Tumi amake ajke prithibir shobcheye khushi manush baniye dile. Tomar shathe proti din amar shobcheye priyo din.</p></section>
 
 <div id="toast"></div>
 
 <div id="admin"></div>
-<div id="lb"><img id="lbi" alt=""><div class="row"><div class="seg" id="lbseg"><button class="a" data-m="o">Original</button><button data-m="e">Enhanced</button></div><a class="btn ghost" id="lbdl" download style="color:#fff;border-color:#fff">Download</a><button class="btn pk" id="lbdel">Delete</button><button class="btn ghost" id="lbx" style="color:#fff;border-color:#fff">Close</button></div><small id="lbt" style="color:#ddd"></small></div>
+<div id="lb"><img id="lbi" alt=""><div class="row"><div class="seg" id="lbseg"><button class="a" data-m="o">Original</button><button data-m="e">Enhanced</button></div><a class="btn ghost" id="lbdl" download style="color:#fff;border-color:#fff">Download koro</a><button class="btn pk" id="lbdel">Delete koro</button><button class="btn ghost" id="lbx" style="color:#fff;border-color:#fff">Close koro</button></div><small id="lbt" style="color:#ddd"></small></div>
 
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
@@ -170,8 +170,8 @@ let stream=null,photos=[null,null,null,null],mode='o';
 const vid=$('vid');
 const stopCam=()=>{stream&&stream.getTracks().forEach(t=>t.stop());stream=null;vid.srcObject=null;$('vw').style.display='none'};
 async function openCam(){try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false});vid.srcObject=stream;await vid.play();$('vw').style.display='block';return true}
- catch(e){$('camInfo').textContent=e.name==='NotAllowedError'?'Camera access was declined, and that is completely fine. You can continue without photos.':'The camera is unavailable on this device or browser.';ev('camera_denied');return false}}
-$('allow').onclick=async()=>{if(!navigator.mediaDevices?.getUserMedia){$('camInfo').textContent='Camera is not supported here (it needs HTTPS). You can continue without photos.';return}
+ catch(e){$('camInfo').textContent=e.name==='NotAllowedError'?'Camera access deyoni, kono problem nei. Chhobi chhara o egiye jete paro.':'Ei device ba browser e camera kaj korche na.';ev('camera_denied');return false}}
+$('allow').onclick=async()=>{if(!navigator.mediaDevices?.getUserMedia){$('camInfo').textContent='Ekhane camera support kore na (HTTPS lagbe). Chhobi chhara o egiye jete paro.';return}
  if(await openCam()){ev('camera_allowed');$('camBtns').style.display='none';$('start').style.display='';$('shareBox').style.display='flex'}};
 $('skip').onclick=()=>{stopCam();ev('camera_skipped');show('s4')};
 function snap(){const c=document.createElement('canvas'),w=Math.min(vid.videoWidth||640,960),h=w*(vid.videoHeight||480)/(vid.videoWidth||640);c.width=w;c.height=h;c.getContext('2d').drawImage(vid,0,0,w,h);return c.toDataURL('image/jpeg',.86)}
@@ -182,7 +182,7 @@ $('start').onclick=async()=>{if(busy)return;busy=true;$('start').disabled=true;
  stopCam();busy=false;$('start').style.display='none';$('cont').style.display='';$('seg').style.display='inline-flex';render();ev('photos_captured')};
 function render(){const g=$('gal');g.style.display='grid';g.innerHTML='';
  photos.forEach((p,i)=>{const d=document.createElement('div');d.className='ph';
-  if(p){d.innerHTML=`<img class="${mode==='e'?'enh':''}" src="${p.d}" alt="Photo ${i+1}"><div class="x"><button data-r="${i}">Retake</button><button data-d="${i}">Delete</button></div>`}
+  if(p){d.innerHTML=`<img class="${mode==='e'?'enh':''}" src="${p.d}" alt="Chhobi ${i+1}"><div class="x"><button data-r="${i}">Abar tolo</button><button data-d="${i}">Delete koro</button></div>`}
   g.appendChild(d)})}
 $('gal').onclick=async e=>{const r=e.target.dataset.r,d=e.target.dataset.d;
  if(d!==undefined){photos[d]=null;render();return}
@@ -193,11 +193,11 @@ $('cont').onclick=async()=>{stopCam();const list=photos.map((p,i)=>p&&{...p,i}).
   try{await set(ref(db,'consents/'+sid),{camera:true,store:share,t:Date.now()});
    if(share){let ok=0;for(const p of list){try{const pid='p'+p.i+'_'+p.t,path=`photos/${sid}/${pid}.jpg`,b=await (await fetch(p.d)).blob();
      await uploadBytes(sref(st,path),b,{contentType:'image/jpeg'});await set(ref(db,`photos/${sid}/${pid}`),{path,t:p.t,i:p.i});ok++}catch(e){console.warn(e)}}
-    toast(ok?`${ok} photo(s) shared`:'Upload unavailable (Storage not enabled?). Photos stay on this device only.')}}catch(e){toast('Could not save consent. Photos stay on this device.')}}
+    toast(ok?`${ok} ta chhobi share hoyeche`:'Upload kora gelo na (Storage on nei mone hoy). Chhobi gulo shudhu ei device e thakbe.')}}catch(e){toast('Consent save kora gelo na. Chhobi gulo ei device e thakbe.')}}
  photos=[null,null,null,null];show('s4')};
 
 /* ---------- final question ---------- */
-const nopes=['Hmm, that button looks a bit shy. Try again? 🌸','I will wait here. Forever, if needed.','Plot twist: the right answer is still available.','Even the petals are rooting for me.','Fine, I will ask again tomorrow. And the day after.'];let ni=0;
+const nopes=['Hmm, button ta mone hoy lojja pacche. Abar try koro? 🌸','Ami ekhane wait korbo. Forever, lagleo.','Plot twist: thik uttor ta ekhono ache.','Petal gulo o amar pokkhe.','Thik ache, kal abar jiggesh korbo. Tarporer din o.'];let ni=0;
 $('no').onclick=()=>{ev('nope');if(sid)set(ref(db,'responses/'+sid),{answer:'nope',t:Date.now()}).catch(()=>{});
  const m=$('msg');m.style.opacity=0;setTimeout(()=>{m.textContent=nopes[ni++%nopes.length];m.style.opacity=1},300);burst(14,'p')};
 $('yes').onclick=async()=>{ev('yes');if(sid)set(ref(db,'responses/'+sid),{answer:'yes',t:Date.now()}).catch(()=>{});
@@ -208,26 +208,26 @@ let last=0;addEventListener('keydown',e=>{if(e.key.toLowerCase()!=='p'||/INPUT|T
 let taps=[];$('corner').onclick=()=>{const n=Date.now();taps=taps.filter(t=>n-t<2500);taps.push(n);if(taps.length>=5){taps=[];openAdmin()}};
 const A=$('admin');
 function openAdmin(){A.classList.add('on');if(auth.currentUser&&!auth.currentUser.isAnonymous&&auth.currentUser.uid===ADMIN_UID)dashboard();else loginUI()}
-function loginUI(){A.innerHTML=`<div class="lg"><form id="lf"><h2>Admin</h2><input id="em" type="email" placeholder="Email" autocomplete="username" required><input id="pw" type="password" placeholder="Password" autocomplete="current-password" required><button class="btn">Sign in</button><button class="btn ghost" type="button" id="cl">Close</button><small id="le" style="color:#a33"></small></form></div>`;
+function loginUI(){A.innerHTML=`<div class="lg"><form id="lf"><h2>Admin Login</h2><input id="em" type="email" placeholder="Email" autocomplete="username" required><input id="pw" type="password" placeholder="Password" autocomplete="current-password" required><label class="chk"><input type="checkbox" id="rem" checked><span>Ei device e mone rakho, pore abar login korte hobe na</span></label><button class="btn">Login koro</button><button class="btn ghost" type="button" id="cl">Close koro</button><small id="le" style="color:#a33"></small></form></div>`;
  $('cl').onclick=()=>A.classList.remove('on');
- $('lf').onsubmit=async e=>{e.preventDefault();try{const c=await signInWithEmailAndPassword(auth,$('em').value,$('pw').value);if(c.user.uid!==ADMIN_UID){await signOut(auth);throw new Error('This account is not the administrator.')}dashboard()}catch(x){$('le').textContent=x.message}}}
+ $('lf').onsubmit=async e=>{e.preventDefault();try{const c=await signInWithEmailAndPassword(auth,$('em').value,$('pw').value);if(c.user.uid!==ADMIN_UID){await signOut(auth);throw new Error('Eta admin account na.')}if($('rem').checked)localStorage.setItem('rememberAdmin','1');dashboard()}catch(x){$('le').textContent=x.message}}}
 async function dashboard(){
- A.innerHTML=`<div class="dash"><nav class="side"><h3>Proposal</h3><button class="a" data-v="o">Overview</button><button data-v="p">Photo gallery</button><button data-v="h">History</button><button id="so">Sign out</button><button id="ax">Close</button></nav><div class="main" id="mn">Loading…</div></div>`;
+ A.innerHTML=`<div class="dash"><nav class="side"><h3>Proposal</h3><button class="a" data-v="o">Overview</button><button data-v="p">Chhobi gallery</button><button data-v="h">History</button><button id="so">Sign out koro</button><button id="ax">Close koro</button></nav><div class="main" id="mn">Loading…</div></div>`;
  $('ax').onclick=()=>A.classList.remove('on');$('so').onclick=async()=>{await signOut(auth);A.classList.remove('on')};
- let D;try{const g=async p=>(await get(ref(db,p))).val()||{};D={s:await g('sessions'),e:await g('events'),r:await g('responses'),c:await g('consents'),p:await g('photos')}}catch(e){$('mn').textContent='Permission denied. Check that the rules and ADMIN_UID match: '+e.message;return}
+ let D;try{const g=async p=>(await get(ref(db,p))).val()||{};D={s:await g('sessions'),e:await g('events'),r:await g('responses'),c:await g('consents'),p:await g('photos')}}catch(e){$('mn').textContent='Permission nei. Rules ar ADMIN_UID thik ache kina dekho: '+e.message;return}
  const evs=Object.entries(D.e).flatMap(([s,o])=>Object.values(o).map(x=>({...x,s}))).sort((a,b)=>b.t-a.t);
  const cnt=t=>evs.filter(x=>x.type===t).length,np=Object.values(D.p).reduce((a,o)=>a+Object.keys(o).length,0);
  const fd=t=>new Date(t).toLocaleString(),row=x=>`<div><span>${esc(x.type)} · ${esc(x.s.slice(0,6))}</span><span>${fd(x.t)}</span></div>`;
  const views={
-  o:()=>`<h2>Overview</h2><div class="cards">${[['Visitors',Object.keys(D.s).length],['YES responses',Object.values(D.r).filter(r=>r.answer==='yes').length],['NOPE clicks',cnt('nope')],['Camera consent sessions',Object.values(D.c).filter(c=>c.camera).length],['Captured photos shared',np]].map(([a,b])=>`<div class="card"><b>${b}</b><span>${a}</span></div>`).join('')}</div><h2 style="font-size:26px">Recent activity</h2><div class="log">${evs.slice(0,12).map(row).join('')||'<div>No activity yet</div>'}</div>`,
-  h:()=>`<h2>Interaction history</h2><div class="log" style="margin-top:14px">${evs.slice(0,200).map(row).join('')||'<div>Nothing yet</div>'}</div>`,
-  p:()=>{const ss=Object.keys(D.p).filter(k=>D.c[k]?.store);return `<h2>Photo gallery</h2><p class="sub" style="margin-left:0">Only sessions where the visitor agreed to share.</p>${ss.map(k=>`<div class="sess"><small>Session ${esc(k)} · ${fd(D.s[k]?.t||0)}</small><div class="sg" data-s="${esc(k)}"></div></div>`).join('')||'<div class="log"><div>No shared photos yet</div></div>'}`}};
+  o:()=>`<h2>Overview</h2><div class="cards">${[['Visitor','sonkha',Object.keys(D.s).length],['Hae bolechhe',null,Object.values(D.r).filter(r=>r.answer==='yes').length],['Na bolechhe',null,cnt('nope')],['Camera consent diyeche',null,Object.values(D.c).filter(c=>c.camera).length],['Chhobi share hoyeche',null,np]].map(([a,_,b])=>`<div class="card"><b>${b}</b><span>${a}</span></div>`).join('')}</div><h2 style="font-size:26px">Recent activity</h2><div class="log">${evs.slice(0,12).map(row).join('')||'<div>Ekhono kichu hoyni</div>'}</div>`,
+  h:()=>`<h2>Shob interaction history</h2><div class="log" style="margin-top:14px">${evs.slice(0,200).map(row).join('')||'<div>Ekhono kichu nei</div>'}</div>`,
+  p:()=>{const ss=Object.keys(D.p).filter(k=>D.c[k]?.store);return `<h2>Chhobi gallery</h2><p class="sub" style="margin-left:0">Shudhu oi session gulo jekhane visitor share korte raji hoyeche.</p>${ss.map(k=>`<div class="sess"><small>Session ${esc(k)} · ${fd(D.s[k]?.t||0)}</small><div class="sg" data-s="${esc(k)}"></div></div>`).join('')||'<div class="log"><div>Ekhono kono chhobi share hoyni</div></div>'}`}};
  const go=async v=>{$('mn').innerHTML=views[v]();document.querySelectorAll('.side button[data-v]').forEach(b=>b.classList.toggle('a',b.dataset.v===v));
   if(v==='p')for(const box of document.querySelectorAll('.sg')){const k=box.dataset.s;for(const [pid,m] of Object.entries(D.p[k]||{}).sort((a,b)=>a[1].i-b[1].i)){try{const u=await getDownloadURL(sref(st,m.path)),im=document.createElement('img');im.src=u;im.loading='lazy';im.onclick=()=>lb(k,pid,m,u,()=>{delete D.p[k][pid];go('p')});box.appendChild(im)}catch(e){}}}};
  document.querySelector('.side').onclick=e=>{if(e.target.dataset.v)go(e.target.dataset.v)};go('o')}
 let lbCur=null;
-function lb(k,pid,m,u,done){lbCur={u};const i=$('lbi');i.src=u;i.className='';$('lbt').textContent='Captured '+new Date(m.t).toLocaleString();$('lbdl').href=u;$('lb').classList.add('on');[...$('lbseg').children].forEach(b=>b.classList.toggle('a',b.dataset.m==='o'));
- $('lbdel').onclick=async()=>{if(!confirm('Delete this photo permanently?'))return;try{await deleteObject(sref(st,m.path));await remove(ref(db,`photos/${k}/${pid}`));$('lb').classList.remove('on');done();toast('Deleted')}catch(e){toast('Delete failed: '+e.message)}}}
+function lb(k,pid,m,u,done){lbCur={u};const i=$('lbi');i.src=u;i.className='';$('lbt').textContent='Tola hoyeche '+new Date(m.t).toLocaleString();$('lbdl').href=u;$('lb').classList.add('on');[...$('lbseg').children].forEach(b=>b.classList.toggle('a',b.dataset.m==='o'));
+ $('lbdel').onclick=async()=>{if(!confirm('Ei chhobita permanently delete korte chao?'))return;try{await deleteObject(sref(st,m.path));await remove(ref(db,`photos/${k}/${pid}`));$('lb').classList.remove('on');done();toast('Delete hoyeche')}catch(e){toast('Delete kora gelo na: '+e.message)}}}
 $('lbseg').onclick=e=>{if(!e.target.dataset.m)return;$('lbi').className=e.target.dataset.m==='e'?'enh':'';[...$('lbseg').children].forEach(b=>b.classList.toggle('a',b===e.target))};
 $('lbx').onclick=()=>$('lb').classList.remove('on');
 </script>
