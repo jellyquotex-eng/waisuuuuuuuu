@@ -60,9 +60,6 @@ video{width:100%;max-height:46vh;border-radius:20px;background:#222;transform:sc
 #admin{position:fixed;inset:0;background:var(--off);z-index:100;display:none;overflow:auto}
 #admin.on{display:block;animation:fi .5s}
 @keyframes fi{from{opacity:0}}
-.lg{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
-.lg form{width:100%;max-width:380px;display:flex;flex-direction:column;gap:12px}
-.lg input{padding:14px 16px;border-radius:14px;border:1px solid #d9d4c3;background:#fff;font:16px var(--sans)}
 .dash{display:flex;min-height:100%}
 .side{width:220px;background:var(--olive);color:var(--off);padding:26px 16px;display:flex;flex-direction:column;gap:6px;flex:none}
 .side h3{font:500 26px var(--serif);margin-bottom:18px}
@@ -117,12 +114,11 @@ video{width:100%;max-height:46vh;border-radius:20px;background:#222;transform:sc
 
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import {getAuth,signInAnonymously,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import {getAuth,signInAnonymously} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import {getDatabase,ref,set,push,get,remove} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 import {getStorage,ref as sref,uploadBytes,getDownloadURL,deleteObject} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
 
 const firebaseConfig={apiKey:"AIzaSyDsGaPnav6iz5DlUCcJC2H-sWVdnG4fdS4",authDomain:"emergency-alert-2b4c2.firebaseapp.com",databaseURL:"https://emergency-alert-2b4c2-default-rtdb.firebaseio.com",projectId:"emergency-alert-2b4c2",storageBucket:"emergency-alert-2b4c2.firebasestorage.app",messagingSenderId:"1051616063274",appId:"1:1051616063274:web:79836dae2851f24f733853"};
-const ADMIN_UID="PASTE_ADMIN_UID_HERE"; // UI hint only. Real enforcement lives in the Firebase rules.
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app),st=getStorage(app);
 const $=id=>document.getElementById(id),sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const toast=m=>{const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),3800)};
@@ -130,7 +126,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 
 /* ---------- tracking ---------- */
 let sid=null;
-(async()=>{try{await auth.authStateReady();if(auth.currentUser&&auth.currentUser.uid===ADMIN_UID)return;
+(async()=>{try{await auth.authStateReady();
 const c=auth.currentUser||(await signInAnonymously(auth)).user;sid=c.uid;
 await set(ref(db,'sessions/'+sid),{t:Date.now(),ua:navigator.userAgent.slice(0,120)});ev('visit')}catch(e){console.warn('Tracking off:',e.message)}})();
 const ev=(type)=>{if(!sid)return;push(ref(db,'events/'+sid),{type,t:Date.now()}).catch(()=>{})};
@@ -142,7 +138,7 @@ const cols=['#F4C6D0','#f8dbe2','#e9a9ba','#BFDDF0','#B98750'];
 const mk=(x,y,o={})=>({x,y,vx:o.vx??(Math.random()-.5)*.6,vy:o.vy??(.5+Math.random()*.9),r:Math.random()*6.28,vr:(Math.random()-.5)*.05,s:o.s??(5+Math.random()*7),c:o.c??cols[Math.random()*3|0],k:o.k||'p',g:o.g||0,life:o.life??1e9,ph:Math.random()*6});
 const ambient=()=>{const n=innerWidth<600?16:30;while(P.filter(p=>p.k==='p'&&p.life>1e8).length<n)P.push(mk(Math.random()*W,-20-Math.random()*H*.5))};
 function burst(n,kind){for(let i=0;i<n;i++){const a=Math.random()*6.28,v=3+Math.random()*9;P.push(mk(W/2,H*.55,{vx:Math.cos(a)*v,vy:Math.sin(a)*v-5,g:.12,life:150+Math.random()*90,k:kind,c:kind==='c'?['#6B7A3A','#B98750','#BFDDF0','#F4C6D0','#FBF7F0'][i%5]:kind==='h'?'#e58aa0':undefined,s:kind==='h'?10+Math.random()*10:undefined}))}}
-let run=true;(function loop(t){cx.clearRect(0,0,W,H);if(!reduce)ambient();
+(function loop(t){cx.clearRect(0,0,W,H);if(!reduce)ambient();
 for(let i=P.length-1;i>=0;i--){const p=P[i];p.life--;p.vy+=p.g;p.x+=p.vx+Math.sin(t/900+p.ph)*.3*(p.g?0:1);p.y+=p.vy;p.r+=p.vr;p.vx*=p.g?.99:1;
 if(p.y>H+30||p.life<0||p.x<-40||p.x>W+40){P.splice(i,1);continue}
 cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.globalAlpha=Math.min(1,p.life/40);
@@ -153,10 +149,10 @@ cx.restore()}requestAnimationFrame(loop)})(0);
 
 /* ---------- scenes ---------- */
 const show=id=>{document.querySelectorAll('.scene').forEach(s=>s.classList.toggle('on',s.id===id))};
-const seg=s=>new Intl.Segmenter?[...new Intl.Segmenter('bn',{granularity:'grapheme'}).segment(s)].map(x=>x.segment):Array.from(s);
+const seg=s=>window.Intl&&Intl.Segmenter?[...new Intl.Segmenter('bn',{granularity:'grapheme'}).segment(s)].map(x=>x.segment):Array.from(s);
 async function intro(){
  await sleep(2200);$('loader').classList.remove('on');await sleep(900);show('s0')}
-$('go').onclick=async()=>{ev('begin');show('s1');document.body.classList.add('b2');await sleep(7500);   // reveal + pause
+$('go').onclick=async()=>{ev('begin');show('s1');document.body.classList.add('b2');await sleep(7500);
  $('s1').classList.remove('on');await sleep(1900);
  const bn=$('bn');bn.innerHTML='';let ls=[];
  'তুমি কি চিরকালের জন্য আমার হবে?'.split(' ').forEach(w=>{const sp=document.createElement('span');sp.className='w';seg(w).forEach(g=>{const l=document.createElement('span');l.className='l';l.textContent=g;sp.appendChild(l);ls.push(l)});bn.appendChild(sp)});
@@ -203,30 +199,32 @@ $('no').onclick=()=>{ev('nope');if(sid)set(ref(db,'responses/'+sid),{answer:'nop
 $('yes').onclick=async()=>{ev('yes');if(sid)set(ref(db,'responses/'+sid),{answer:'yes',t:Date.now()}).catch(()=>{});
  burst(110,'p');burst(90,'c');burst(26,'h');show('s5');await sleep(900);burst(70,'p');await sleep(1200);burst(20,'h')};
 
-/* ---------- hidden admin ---------- */
-let last=0;addEventListener('keydown',e=>{if(e.key.toLowerCase()!=='p'||/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;const n=Date.now();if(n-last<450){last=0;openAdmin()}else last=n});
-let taps=[];$('corner').onclick=()=>{const n=Date.now();taps=taps.filter(t=>n-t<2500);taps.push(n);if(taps.length>=5){taps=[];openAdmin()}};
+/* ---------- hidden admin: press P twice (or tap the top-left corner 5 times). No login. ---------- */
 const A=$('admin');
-function openAdmin(){A.classList.add('on');if(auth.currentUser&&!auth.currentUser.isAnonymous&&auth.currentUser.uid===ADMIN_UID)dashboard();else loginUI()}
-function loginUI(){A.innerHTML=`<div class="lg"><form id="lf"><h2>Admin Login</h2><input id="em" type="email" placeholder="Email" autocomplete="username" required><input id="pw" type="password" placeholder="Password" autocomplete="current-password" required><label class="chk"><input type="checkbox" id="rem" checked><span>Ei device e mone rakho, pore abar login korte hobe na</span></label><button class="btn">Login koro</button><button class="btn ghost" type="button" id="cl">Close koro</button><small id="le" style="color:#a33"></small></form></div>`;
- $('cl').onclick=()=>A.classList.remove('on');
- $('lf').onsubmit=async e=>{e.preventDefault();try{const c=await signInWithEmailAndPassword(auth,$('em').value,$('pw').value);if(c.user.uid!==ADMIN_UID){await signOut(auth);throw new Error('Eta admin account na.')}if($('rem').checked)localStorage.setItem('rememberAdmin','1');dashboard()}catch(x){$('le').textContent=x.message}}}
+const closeAdmin=()=>A.classList.remove('on');
+const openAdmin=()=>{A.classList.add('on');dashboard()};
+let last=0;
+addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&A.classList.contains('on')){closeAdmin();return}
+ if(e.key.toLowerCase()!=='p'||e.repeat||e.ctrlKey||e.metaKey||e.altKey||/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;
+ const n=Date.now();if(n-last<450){last=0;A.classList.contains('on')?closeAdmin():openAdmin()}else last=n});
+let taps=[];$('corner').onclick=()=>{const n=Date.now();taps=taps.filter(t=>n-t<2500);taps.push(n);if(taps.length>=5){taps=[];openAdmin()}};
 async function dashboard(){
- A.innerHTML=`<div class="dash"><nav class="side"><h3>Proposal</h3><button class="a" data-v="o">Overview</button><button data-v="p">Chhobi gallery</button><button data-v="h">History</button><button id="so">Sign out koro</button><button id="ax">Close koro</button></nav><div class="main" id="mn">Loading…</div></div>`;
- $('ax').onclick=()=>A.classList.remove('on');$('so').onclick=async()=>{await signOut(auth);A.classList.remove('on')};
- let D;try{const g=async p=>(await get(ref(db,p))).val()||{};D={s:await g('sessions'),e:await g('events'),r:await g('responses'),c:await g('consents'),p:await g('photos')}}catch(e){$('mn').textContent='Permission nei. Rules ar ADMIN_UID thik ache kina dekho: '+e.message;return}
+ A.innerHTML=`<div class="dash"><nav class="side"><h3>Proposal</h3><button class="a" data-v="o">Overview</button><button data-v="p">Chhobi gallery</button><button data-v="h">History</button><button id="ax">Close koro</button></nav><div class="main" id="mn">Loading…</div></div>`;
+ $('ax').onclick=closeAdmin;
+ let D;try{if(!auth.currentUser){try{await signInAnonymously(auth)}catch(e){}}
+  const g=async p=>(await get(ref(db,p))).val()||{};D={s:await g('sessions'),e:await g('events'),r:await g('responses'),c:await g('consents'),p:await g('photos')}}catch(e){$('mn').textContent='Data porte parchi na. Firebase Realtime Database rules e read allow kora ache kina dekho: '+e.message;return}
  const evs=Object.entries(D.e).flatMap(([s,o])=>Object.values(o).map(x=>({...x,s}))).sort((a,b)=>b.t-a.t);
  const cnt=t=>evs.filter(x=>x.type===t).length,np=Object.values(D.p).reduce((a,o)=>a+Object.keys(o).length,0);
  const fd=t=>new Date(t).toLocaleString(),row=x=>`<div><span>${esc(x.type)} · ${esc(x.s.slice(0,6))}</span><span>${fd(x.t)}</span></div>`;
  const views={
-  o:()=>`<h2>Overview</h2><div class="cards">${[['Visitor','sonkha',Object.keys(D.s).length],['Hae bolechhe',null,Object.values(D.r).filter(r=>r.answer==='yes').length],['Na bolechhe',null,cnt('nope')],['Camera consent diyeche',null,Object.values(D.c).filter(c=>c.camera).length],['Chhobi share hoyeche',null,np]].map(([a,_,b])=>`<div class="card"><b>${b}</b><span>${a}</span></div>`).join('')}</div><h2 style="font-size:26px">Recent activity</h2><div class="log">${evs.slice(0,12).map(row).join('')||'<div>Ekhono kichu hoyni</div>'}</div>`,
+  o:()=>`<h2>Overview</h2><div class="cards">${[['Visitor',Object.keys(D.s).length],['Hae bolechhe',Object.values(D.r).filter(r=>r.answer==='yes').length],['Na bolechhe',cnt('nope')],['Camera consent diyeche',Object.values(D.c).filter(c=>c.camera).length],['Chhobi share hoyeche',np]].map(([a,b])=>`<div class="card"><b>${b}</b><span>${a}</span></div>`).join('')}</div><h2 style="font-size:26px">Recent activity</h2><div class="log">${evs.slice(0,12).map(row).join('')||'<div>Ekhono kichu hoyni</div>'}</div>`,
   h:()=>`<h2>Shob interaction history</h2><div class="log" style="margin-top:14px">${evs.slice(0,200).map(row).join('')||'<div>Ekhono kichu nei</div>'}</div>`,
   p:()=>{const ss=Object.keys(D.p).filter(k=>D.c[k]?.store);return `<h2>Chhobi gallery</h2><p class="sub" style="margin-left:0">Shudhu oi session gulo jekhane visitor share korte raji hoyeche.</p>${ss.map(k=>`<div class="sess"><small>Session ${esc(k)} · ${fd(D.s[k]?.t||0)}</small><div class="sg" data-s="${esc(k)}"></div></div>`).join('')||'<div class="log"><div>Ekhono kono chhobi share hoyni</div></div>'}`}};
  const go=async v=>{$('mn').innerHTML=views[v]();document.querySelectorAll('.side button[data-v]').forEach(b=>b.classList.toggle('a',b.dataset.v===v));
   if(v==='p')for(const box of document.querySelectorAll('.sg')){const k=box.dataset.s;for(const [pid,m] of Object.entries(D.p[k]||{}).sort((a,b)=>a[1].i-b[1].i)){try{const u=await getDownloadURL(sref(st,m.path)),im=document.createElement('img');im.src=u;im.loading='lazy';im.onclick=()=>lb(k,pid,m,u,()=>{delete D.p[k][pid];go('p')});box.appendChild(im)}catch(e){}}}};
  document.querySelector('.side').onclick=e=>{if(e.target.dataset.v)go(e.target.dataset.v)};go('o')}
-let lbCur=null;
-function lb(k,pid,m,u,done){lbCur={u};const i=$('lbi');i.src=u;i.className='';$('lbt').textContent='Tola hoyeche '+new Date(m.t).toLocaleString();$('lbdl').href=u;$('lb').classList.add('on');[...$('lbseg').children].forEach(b=>b.classList.toggle('a',b.dataset.m==='o'));
+function lb(k,pid,m,u,done){const i=$('lbi');i.src=u;i.className='';$('lbt').textContent='Tola hoyeche '+new Date(m.t).toLocaleString();$('lbdl').href=u;$('lb').classList.add('on');[...$('lbseg').children].forEach(b=>b.classList.toggle('a',b.dataset.m==='o'));
  $('lbdel').onclick=async()=>{if(!confirm('Ei chhobita permanently delete korte chao?'))return;try{await deleteObject(sref(st,m.path));await remove(ref(db,`photos/${k}/${pid}`));$('lb').classList.remove('on');done();toast('Delete hoyeche')}catch(e){toast('Delete kora gelo na: '+e.message)}}}
 $('lbseg').onclick=e=>{if(!e.target.dataset.m)return;$('lbi').className=e.target.dataset.m==='e'?'enh':'';[...$('lbseg').children].forEach(b=>b.classList.toggle('a',b===e.target))};
 $('lbx').onclick=()=>$('lb').classList.remove('on');
